@@ -1,0 +1,14 @@
+services:
+  db: # nome do container
+    image: mysql:latest
+    ports: # maquina:container
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    restart: always
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "true"
+      MYSQL_DATABASE: spring_security_db
+
+volumes:
+  mysql_data:
