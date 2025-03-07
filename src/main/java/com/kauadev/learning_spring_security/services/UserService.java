@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kauadev.learning_spring_security.domain.entities.User;
+import com.kauadev.learning_spring_security.exceptions.user.UserNotFoundException;
 import com.kauadev.learning_spring_security.repository.UserRepository;
 
 @Service
@@ -22,6 +23,9 @@ public class UserService {
     public User findUserById(Integer id) {
         Optional<User> user = this.userRepository.findById(id);
 
+        if (!user.isPresent())
+            throw new UserNotFoundException();
+
         return user.get();
     }
 
@@ -31,6 +35,9 @@ public class UserService {
 
     public User updateUser(Integer id, User newUser) {
         Optional<User> user = this.userRepository.findById(id);
+
+        if (!user.isPresent())
+            throw new UserNotFoundException();
 
         user.get().setEmail(newUser.getEmail());
         user.get().setPassword(newUser.getPassword());
@@ -42,6 +49,9 @@ public class UserService {
 
     public String deleteUser(Integer id) {
         Optional<User> user = this.userRepository.findById(id);
+
+        if (!user.isPresent())
+            throw new UserNotFoundException();
 
         this.userRepository.delete(user.get());
 
