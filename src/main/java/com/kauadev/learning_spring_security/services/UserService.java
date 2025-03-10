@@ -29,10 +29,6 @@ public class UserService {
         return user.get();
     }
 
-    public User createUser(User newUser) {
-        return this.userRepository.save(newUser);
-    }
-
     public User updateUser(Integer id, User newUser) {
         Optional<User> user = this.userRepository.findById(id);
 
